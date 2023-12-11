@@ -1,0 +1,32 @@
+POST http://localhost:3333/sessions
+Content-Type: application/json
+
+{
+	"initData": "your_init_data"
+}
+
+###
+
+POST http://localhost:3333/transactions
+Content-Type: application/json
+Authorization: Bearer token
+
+{
+	"description": "Website hosting",
+	"amount": -73,
+	"date": "2023-10-06"
+}
+
+###
+
+GET http://localhost:3333/transactions
+Authorization: Bearer token
+###
+
+DELETE http://localhost:3333/transactions/a39fba36-24cf-4856-b3ff-5eb54384f1e6
+Authorization: Bearer token
+
+###
+
+GET http://localhost:3333/transactions/balance
+Authorization: Bearer token

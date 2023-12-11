@@ -1,0 +1,24 @@
+{
+	"name": "dev.finance-server",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"type": "module",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node src/server.js",
+		"dev": "node --watch src/server.js",
+		"db:create": "node src/database/createTables.js"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"@fastify/cors": "^8.4.0",
+		"@tma.js/init-data-node": "^0.0.15",
+		"dotenv": "^16.3.1",
+		"fastify": "^4.23.2",
+		"jsonwebtoken": "^9.0.2",
+		"postgres": "^3.3.5"
+	}
+}
