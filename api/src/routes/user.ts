@@ -7,15 +7,15 @@ interface UserProps {
 }
 
 async function userRoutes(fastify: FastifyInstance, options: any) {
-    fastify.get('/users', async (request: FastifyRequest, reply: FastifyReply) => {
+    fastify.get('/', async (request: FastifyRequest, reply: FastifyReply) => {
         return { users: 'Get All Users' };
     });
 
-    fastify.get('/users/:id', async (request: FastifyRequest, reply: FastifyReply) => {
+    fastify.get('/:id', async (request: FastifyRequest, reply: FastifyReply) => {
         return { user: 'Get Especific Users' };
     });
 
-    fastify.post('/users', async (request: FastifyRequest, reply: FastifyReply) => {
+    fastify.post('/', async (request: FastifyRequest, reply: FastifyReply) => {
         const { name, email, password } = request.body as UserProps;
         return { user: 'Create new user route' };
     });
