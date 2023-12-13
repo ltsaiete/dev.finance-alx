@@ -3,15 +3,6 @@ import { z } from 'zod';
 import userRepository from '../repositories/User';
 import UserValidation from '../validations/userValidation';
 
-
-interface ErrorObjectProps {
-    code: string,
-    expected: string,
-    received: string,
-    path: Array<string>,
-    message: string,
-}
-
 class UserController {
     // get especific
     static async getUser(request: FastifyRequest, reply: FastifyReply) {
