@@ -1,20 +1,28 @@
-import prisma from '../db';
+import { userTable } from '../db';
 
 class UserRepository {
-	#client;
-	constructor() {
-		this.#client = prisma.user;
-	}
-
 	async create(name: string, email: string, password: string) {
-		await this.#client.create({
+		const newUser = await userTable.create({
 			data: {
 				name,
 				email,
 				password
 			}
 		});
+		
+		return newUser;
+	}
+
+	async findByEmail(email: string) {
+		const user = await userTable.findFirst({
+			where: {
+				email: email
+			}
+		});
+
+		return user;
 	}
 }
 
-export default new UserRepository();
+const userRepository = new UserRepository();
+export default userRepository;
