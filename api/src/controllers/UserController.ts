@@ -33,6 +33,19 @@ class UserController {
 
         return { user: newUser };
     }
+
+    static async deleteUser(request: FastifyRequest, reply: FastifyReply) {
+        const { id } = request.params as requestParams;
+        const user = await userRepository.findUser(id);
+
+        if (!user) {
+            return reply.status(404).send({ errors: "User not found." });
+        }
+
+        await userRepository.deleteUser(id);
+
+        return {message: "User deleted."};
+    }
 }
 
 

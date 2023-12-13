@@ -19,7 +19,7 @@ class UserRepository {
 	}
 
 	async findUser(id: string) {
-		const user  = await userTable.findFirst({ where: { id: id } });
+		const user = await userTable.findFirst({ where: { id: id } });
 		return user;
 	}
 
@@ -31,6 +31,10 @@ class UserRepository {
 		});
 
 		return user;
+	}
+
+	async deleteUser(id: string) {
+		await userTable.delete({ where: { id } });
 	}
 }
 
