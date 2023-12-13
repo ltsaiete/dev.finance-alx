@@ -18,6 +18,11 @@ class UserRepository {
 		return newUser;
 	}
 
+	async findUser(id: string) {
+		const user  = await userTable.findFirst({ where: { id: id } });
+		return user;
+	}
+
 	async findByEmail(email: string) {
 		const user = await userTable.findFirst({
 			where: {

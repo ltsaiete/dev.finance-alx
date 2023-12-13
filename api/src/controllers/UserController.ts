@@ -1,11 +1,22 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
+import { z } from 'zod';
 import userRepository from '../repositories/User';
 import UserValidation from '../validations/userValidation';
 
+interface requestParams {
+    id: string,
+}
 class UserController {
     // get especific
     static async getUser(request: FastifyRequest, reply: FastifyReply) {
-        return { user: 'Get Especific Users' };
+        const { id } = request.params as requestParams;
+        const user = await userRepository.findUser(id);
+
+        if (!user) {
+            return reply.status(404).send({ errors: "User not found." });
+        }
+
+        return { name: user.name, email: user.email };
     }
 
     // create new user
