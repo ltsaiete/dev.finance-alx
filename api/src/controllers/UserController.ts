@@ -1,5 +1,8 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
+import userRepository from '../repositories/User';
+import UserValidation from '../validations/userValidation';
+
 
 interface ErrorObjectProps {
     code: string,
@@ -10,41 +13,25 @@ interface ErrorObjectProps {
 }
 
 class UserController {
-	// get especific
-	static async getUser(request: FastifyRequest, reply: FastifyReply) {
-		return { user: 'Get Especific Users' };
-	}
+    // get especific
+    static async getUser(request: FastifyRequest, reply: FastifyReply) {
+        return { user: 'Get Especific Users' };
+    }
 
-	// create new user
-	static async createUser(request: FastifyRequest, reply: FastifyReply) {
-		const User = z.object({
-			name: z.string({
-				required_error: 'Name is required.',
-				invalid_type_error: 'Name must be a string.',
-			}).min(3, 'Name must have a minimum of 3 characters.').max(254, 'Name must have a maximum of 3 characters.'),
-			email: z.string({
-				required_error: 'Email is required',
-				invalid_type_error: 'Email must be a string.',
-			}).email('Email must be a valid email.'),
-			password: z.string({
-				required_error: 'Password is required.',
-				invalid_type_error: 'Password must be a string.',
-			}).min(8, 'Password must have a minimum of 8 characters.'),
-		});
+    // create new user
+    static async createUser(request: FastifyRequest, reply: FastifyReply) {
+        const { name, email, password } = UserValidation.parse(request.body);
 
-		const parsedData = User.safeParse(request.body);
+        const user = await userRepository.findByEmail(email);
 
-		if (!parsedData.success) {
-			const errors = JSON.parse(parsedData.error.toString());
-			const messages: Array<string> = errors.map((content: ErrorObjectProps) => content.message);
+        if (user) {
+            return reply.status(400).send({ errors: "Email already as an account." });
+        }
+        
+        const newUser = await userRepository.create(name, email, password);
 
-			return reply.status(400).send({ errors: messages.join('\n') });
-		}
-
-		const { name, email, password } = parsedData.data;
-
-		return { user: 'Create new user route' };
-	}
+        return { user: newUser };
+    }
 }
 
 

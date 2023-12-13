@@ -1,7 +1,12 @@
 import { userTable } from '../db';
+import bcrypt from 'bcrypt';
 
 class UserRepository {
 	async create(name: string, email: string, password: string) {
+		const salt = await bcrypt.genSalt(10);
+
+		const hashedPwd = await bcrypt.hash(password, salt);
+
 		const newUser = await userTable.create({
 			data: {
 				name,
@@ -9,7 +14,7 @@ class UserRepository {
 				password
 			}
 		});
-		
+
 		return newUser;
 	}
 
