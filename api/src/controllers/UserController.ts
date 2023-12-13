@@ -1,5 +1,4 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { z } from 'zod';
 import userRepository from '../repositories/User';
 import UserValidation from '../validations/userValidation';
 
