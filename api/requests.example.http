@@ -1,4 +1,4 @@
-POST http://localhost:3333/users
+POST http://localhost:3333/api/v1/users
 Content-Type: application/json
 
 {
@@ -6,3 +6,6 @@ Content-Type: application/json
 	"email": "lewis@mail.com",
 	"password": "123456"
 }
+###
+GET http://localhost:3333/api/v1/users/1
+Content-Type: application/json
