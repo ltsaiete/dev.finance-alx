@@ -33,8 +33,8 @@ model Transaction {
   designation String          @db.VarChar(255)
   type        TransactionType @default(EXPENSE)
   amount      Float           @db.Real()
-  default     Boolean         @default(false) @db.Boolean()
-  completed   Boolean         @default(false) @db.Boolean()
+  isDefault   Boolean         @default(false) @map("is_default") @db.Boolean()
+  isCompleted Boolean         @default(false) @map("is_completed") @db.Boolean()
   createdAt   DateTime        @default(now()) @map("created_at") @db.Timestamp(6)
   updatedAt   DateTime        @default(now()) @map("updated_at") @db.Timestamp(6)
 

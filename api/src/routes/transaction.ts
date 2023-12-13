@@ -6,8 +6,7 @@ export default async function transactionRoutes(fastify: FastifyInstance, opts: 
 	fastify.post('/', TransactionController.create);
 
 	fastify.addHook('preHandler', (request, reply, done) => {
-
-		request.userId = '75dd9f71-a388-4cc9-a692-159ada3d5bc0';
+		request.userId = '757afa69-adbc-40fe-a027-58b672753140';
 		done();
 	});
 }
