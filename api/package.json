@@ -6,18 +6,22 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"dev": "tsx watch --inspect src/server.ts",
-		"prisma:migrate": "prisma migrate dev --name"
+		"prisma:migrate": "prisma migrate dev --name",
+		"seed": "tsx prisma/seed.ts"
 	},
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
 		"@prisma/client": "^5.7.0",
+		"bcrypt": "^5.1.1",
 		"fastify": "^4.24.3",
 		"tsx": "^4.6.2",
-		"typescript": "^5.3.3"
+		"typescript": "^5.3.3",
+		"zod": "^3.22.4"
 	},
 	"devDependencies": {
+		"@types/bcrypt": "^5.0.2",
 		"prisma": "^5.7.0"
 	}
 }
