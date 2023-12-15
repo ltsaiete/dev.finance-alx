@@ -18,7 +18,8 @@ model User {
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
   updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp(6)
 
-  transactions Transaction[]
+  transactions        Transaction[]
+  defaultTransactions DefaultTransactions[]
 
   @@map("users")
 }
@@ -33,13 +34,24 @@ model Transaction {
   designation String          @db.VarChar(255)
   type        TransactionType @default(EXPENSE)
   amount      Float           @db.Real()
-  isDefault   Boolean         @default(false) @map("is_default") @db.Boolean()
-  isCompleted Boolean         @default(false) @map("is_completed") @db.Boolean()
+  completed   Boolean         @default(false) @map("is_completed") @db.Boolean()
   createdAt   DateTime        @default(now()) @map("created_at") @db.Timestamp(6)
   updatedAt   DateTime        @default(now()) @map("updated_at") @db.Timestamp(6)
 
+  user                User                  @relation(fields: [userId], references: [id])
+  userId              String                @map("user_id")
+  defaultTransactions DefaultTransactions[]
+
+  @@map("transactions")
+}
+
+model DefaultTransactions {
   user   User   @relation(fields: [userId], references: [id])
   userId String @map("user_id")
 
-  @@map("transactions")
+  transaction   Transaction @relation(fields: [transactionId], references: [id])
+  transactionId String      @map("transaction_id")
+
+  @@id([userId, transactionId])
+  @@map("default_transactions")
 }

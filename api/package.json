@@ -7,7 +7,7 @@
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"dev": "tsx watch --inspect src/server.ts",
 		"prisma:migrate": "prisma migrate dev --name",
-		"seed": "tsx prisma/seed.ts"
+		"seed": "tsx prisma/seeds/index.ts"
 	},
 	"keywords": [],
 	"author": "",
@@ -15,6 +15,7 @@
 	"dependencies": {
 		"@prisma/client": "^5.7.0",
 		"bcrypt": "^5.1.1",
+		"dayjs": "^1.11.10",
 		"fastify": "^4.24.3",
 		"tsx": "^4.6.2",
 		"typescript": "^5.3.3",
