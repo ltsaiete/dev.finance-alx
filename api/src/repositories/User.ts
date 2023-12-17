@@ -1,20 +1,42 @@
-import prisma from '../db';
+import { userTable } from '../db';
+import bcrypt from 'bcrypt';
 
 class UserRepository {
-	#client;
-	constructor() {
-		this.#client = prisma.user;
-	}
-
 	async create(name: string, email: string, password: string) {
-		await this.#client.create({
+		const salt = await bcrypt.genSalt(10);
+
+		const hashedPwd = await bcrypt.hash(password, salt);
+
+		const newUser = await userTable.create({
 			data: {
 				name,
 				email,
-				password
+				password: hashedPwd
 			}
 		});
+
+		return newUser;
+	}
+
+	async findUser(id: string) {
+		const user = await userTable.findFirst({ where: { id: id } });
+		return user;
+	}
+
+	async findByEmail(email: string) {
+		const user = await userTable.findFirst({
+			where: {
+				email: email
+			}
+		});
+
+		return user;
+	}
+
+	async deleteUser(id: string) {
+		await userTable.delete({ where: { id } });
 	}
 }
 
-export default new UserRepository();
+const userRepository = new UserRepository();
+export default userRepository;
