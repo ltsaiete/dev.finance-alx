@@ -1,7 +1,17 @@
 import prisma from '../db';
-import { TransactionProps } from '../controllers/TransactionController';
+import { TransactionType } from '@prisma/client';
 
-interface Transaction extends TransactionProps {
+interface Transaction {
+	id?: string;
+	designation: string;
+	amount: number;
+	type?: TransactionType;
+	completed?: boolean;
+	userId: string;
+}
+
+interface DefaultTransactions {
+	transactionId: string;
 	userId: string;
 }
 
@@ -17,6 +27,15 @@ class TransactionRepository {
 			data
 		});
 		return transaction;
+	}
+
+	async setDefault({ transactionId, userId }: DefaultTransactions) {
+		await prisma.defaultTransactions.create({
+			data: {
+				userId,
+				transactionId
+			}
+		});
 	}
 }
 

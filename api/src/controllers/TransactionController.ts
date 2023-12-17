@@ -3,22 +3,24 @@ import { z } from 'zod';
 import dayjs from 'dayjs';
 import transactionRepository from '../repositories/transaction';
 
-const TransactionSchema = z.object({
-	designation: z.string(),
-	amount: z.number(),
-	type: z.enum(['EXPENSE', 'INCOME']).optional(),
-	isDefault: z.boolean().optional(),
-	isCompleted: z.boolean().optional()
-});
-
-export type TransactionProps = z.infer<typeof TransactionSchema>;
+// export type TransactionProps = z.infer<typeof TransactionSchema>;
 
 export default class TransactionController {
 	static async create(request: FastifyRequest, reply: FastifyReply) {
-		const { designation, amount, isDefault, isCompleted, type } = TransactionSchema.parse(request.body);
+		const TransactionBodySchema = z.object({
+			designation: z.string(),
+			amount: z.number(),
+			type: z.enum(['EXPENSE', 'INCOME']).optional(),
+			isDefault: z.boolean().optional(),
+			completed: z.boolean().optional()
+		});
+		const { designation, amount, isDefault, completed, type } = TransactionBodySchema.parse(request.body);
 		const userId = request.userId;
 
-		const transaction = await transactionRepository.create({ designation, amount, isDefault, isCompleted, userId });
+		const transaction = await transactionRepository.create({ designation, amount, completed, type, userId });
+
+		if (isDefault)
+			await transactionRepository.setDefault({ transactionId: transaction.id, userId: transaction.userId });
 
 		return reply.status(201).send(transaction);
 	}
@@ -30,8 +32,6 @@ export default class TransactionController {
 		const { month } = RouteParamsSchema.parse(request.params);
 		const monthStart = dayjs().month(month).startOf('M');
 		const monthEnd = dayjs().month(month).endOf('M');
-
-		
 
 		return reply.send('hello');
 	}
