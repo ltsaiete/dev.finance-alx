@@ -17,6 +17,7 @@ class UserController {
         }
 
         return { name: user.name, email: user.email };
+
     }
 
     // create new user
