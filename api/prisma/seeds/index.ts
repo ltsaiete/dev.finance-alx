@@ -4,30 +4,24 @@ import { defaultTransactionSeeds, transactionSeeds } from './transactions';
 
 const prisma = new PrismaClient();
 async function main() {
-	const lewis = await prisma.user.upsert({
-		where: { email: 'lewis@gmail.com' },
-
-		update: {},
-
-		create: {
-			id: '59e40a74-b915-461c-8cef-1006f9408340',
-			email: 'lewis@gmail.com',
-			name: 'Lewis',
-			password: await bcrypt.hash('123456', 10)
-		}
-	});
-
-	const uss = await prisma.user.upsert({
-		where: { email: 'uss@gmail.com' },
-
-		update: {},
-
-		create: {
-			id: 'a1649867-b565-4e5a-80b6-44f97bd50626',
-			email: 'uss@gmail.com',
-			name: 'Uss',
-			password: await bcrypt.hash('123456', 10)
-		}
+	await prisma.user.deleteMany();
+	await prisma.defaultTransactions.deleteMany();
+	await prisma.transaction.deleteMany();
+	const users = await prisma.user.createMany({
+		data: [
+			{
+				id: 'a1649867-b565-4e5a-80b6-44f97bd50626',
+				email: 'uss@gmail.com',
+				name: 'Uss',
+				password: await bcrypt.hash('123456', 10)
+			},
+			{
+				id: '59e40a74-b915-461c-8cef-1006f9408340',
+				email: 'lewis@gmail.com',
+				name: 'Lewis',
+				password: await bcrypt.hash('123456', 10)
+			}
+		]
 	});
 
 	const transactions = await prisma.transaction.createMany({
@@ -38,7 +32,7 @@ async function main() {
 		data: defaultTransactionSeeds
 	});
 
-	console.log(lewis, uss, transactions, defaultTransactions);
+	console.log(users, transactions, defaultTransactions);
 }
 
 main()

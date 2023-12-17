@@ -1,5 +1,6 @@
+import { DefaultArgs } from '@prisma/client/runtime/library';
 import prisma from '../db';
-import { TransactionType } from '@prisma/client';
+import { Prisma, TransactionType } from '@prisma/client';
 
 interface Transaction {
 	id?: string;
@@ -15,6 +16,14 @@ interface DefaultTransactions {
 	userId: string;
 }
 
+interface FindTransactionsProps {
+	type?: TransactionType;
+	completed?: boolean;
+	userId: string;
+	startDate?: Date;
+	endDate?: Date;
+}
+
 class TransactionRepository {
 	#client;
 
@@ -22,10 +31,39 @@ class TransactionRepository {
 		this.#client = prisma.transaction;
 	}
 
-	async create(data: Transaction): Promise<Transaction> {
+	async create(data: Transaction) {
 		const transaction = await this.#client.create({
 			data
 		});
+		return transaction;
+	}
+
+	async findMany({ endDate, startDate, userId, completed, type }: FindTransactionsProps) {
+		const transactions = await this.#client.findMany({
+			where: {
+				userId,
+				completed,
+				type,
+				createdAt: {
+					gte: startDate,
+					lte: endDate
+				}
+			},
+			orderBy: {
+				createdAt: 'asc'
+			}
+		});
+
+		return transactions;
+	}
+
+	async findById(id: string) {
+		const transaction = await this.#client.findFirst({
+			where: {
+				id
+			}
+		});
+
 		return transaction;
 	}
 

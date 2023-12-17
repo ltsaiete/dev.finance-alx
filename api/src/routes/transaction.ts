@@ -5,9 +5,11 @@ export default async function transactionRoutes(fastify: FastifyInstance, opts: 
 	fastify.decorateRequest('userId', '');
 	fastify.post('/', TransactionController.create);
 	fastify.get('/month/:month', TransactionController.showByMonth);
+	fastify.get('/', TransactionController.list);
+	fastify.get('/:id', TransactionController.list);
 
 	fastify.addHook('preHandler', (request, reply, done) => {
-		request.userId = '757afa69-adbc-40fe-a027-58b672753140';
+		request.userId = '59e40a74-b915-461c-8cef-1006f9408340';
 		done();
 	});
 }
