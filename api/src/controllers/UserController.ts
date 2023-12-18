@@ -32,7 +32,7 @@ class UserController {
         
         const newUser = await userRepository.create(name, email, password);
 
-        return { user: newUser };
+        return reply.status(201).send(newUser);
     }
 
     static async deleteUser(request: FastifyRequest, reply: FastifyReply) {
