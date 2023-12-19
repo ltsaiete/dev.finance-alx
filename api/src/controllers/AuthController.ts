@@ -38,7 +38,7 @@ class AuthController {
             expiresIn: '1h',
         });
 
-        return reply.send({ token, user: { name: user.name, email: user.email } });
+        return reply.send({ token, user: { id: user.id, name: user.name, email: user.email } });
     }
 
     static verifyToken(token: string) {
