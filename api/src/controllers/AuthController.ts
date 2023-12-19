@@ -4,7 +4,13 @@ import { z } from 'zod';
 import userRepository from "../repositories/User";
 import jwt from 'jsonwebtoken';
 
+interface TokenVerifier {
+    userId: string;
+}
+
 class AuthController {
+    static #SECRET_KEY = process.env.APP_SECRET ?? "";
+
     static async login(request: FastifyRequest, reply: FastifyReply) {
         const authValidation = z.object({
             email: z.string({
@@ -28,13 +34,19 @@ class AuthController {
             return reply.status(401).send({ error: 'Unauthorized', message: 'Password is wrong!' });
         }
 
-        const SECRET_KEY = process.env.APP_SECRET ?? "";
-
-        const token = jwt.sign({ userId: user.id }, SECRET_KEY, {
+        const token = jwt.sign({ userId: user.id }, AuthController.#SECRET_KEY, {
             expiresIn: '1h',
         });
 
         return reply.send({ token, user: { name: user.name, email: user.email } });
+    }
+
+    static verifyToken(token: string) {
+        try {
+            return jwt.verify(token, AuthController.#SECRET_KEY) as TokenVerifier;
+        } catch (error) {
+            return null;
+        }
     }
 }
 
