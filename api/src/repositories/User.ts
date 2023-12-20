@@ -36,6 +36,12 @@ class UserRepository {
 	async deleteUser(id: string) {
 		await userTable.delete({ where: { id } });
 	}
+
+	async verifyUserPassword(password: string, hashedPwd: string) {
+		const match = await bcrypt.compare(password, hashedPwd);
+		
+		return match;
+	}
 }
 
 const userRepository = new UserRepository();
