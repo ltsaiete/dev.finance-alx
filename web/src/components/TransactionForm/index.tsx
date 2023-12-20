@@ -1,5 +1,6 @@
 import { useState, FormEvent } from 'react';
-import { InputGroup, ActionsGroup, DangerButton, Button } from './styles';
+import { ActionsGroup } from './styles';
+import Button from '../Button';
 import { postItem } from '../../services/api';
 import WebApp from '@twa-dev/sdk';
 import Input from '../Input';
@@ -15,16 +16,16 @@ export default function TransactionForm({ onCloseModal }: TransactionFormProps) 
 	async function handleSubmitTransaction(e: FormEvent) {
 		e.preventDefault();
 		if (!description || !amount || !date) {
-			WebApp.showAlert('Please, fill all the fields');
+			// WebApp.showAlert('Please, fill all the fields');
 			return;
 		}
-		const response = await postItem('/transactions', { description, amount, date });
+		// const response = await postItem('/transactions', { description, amount, date });
 
-		if (response.error) WebApp.showAlert('Error submitting transaction');
-		else {
-			WebApp.showAlert('Successfully submitted transaction');
-			onCloseModal();
-		}
+		// if (response.error) WebApp.showAlert('Error submitting transaction');
+		// else {
+		// 	WebApp.showAlert('Successfully submitted transaction');
+		// 	onCloseModal();
+		// }
 	}
 
 	return (
@@ -47,10 +48,8 @@ export default function TransactionForm({ onCloseModal }: TransactionFormProps) 
 			</InputGroup> */}
 
 			<ActionsGroup>
-				<DangerButton type="button" onClick={onCloseModal}>
-					Cancel
-				</DangerButton>
-				<Button type="submit">Save</Button>
+				<Button text="Cancel" buttonType="danger" onClick={onCloseModal} />
+				<Button text="Save" type="submit" />
 			</ActionsGroup>
 		</form>
 	);
