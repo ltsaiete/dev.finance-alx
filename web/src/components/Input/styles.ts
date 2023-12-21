@@ -14,5 +14,8 @@ export const InputGroup = styled.div`
 	small {
 		opacity: 0.9;
 	}
-`;
 
+	& + & {
+		margin-top: 1.6rem;
+	}
+`;

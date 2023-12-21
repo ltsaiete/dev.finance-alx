@@ -9,7 +9,9 @@ export default function useFetch<T = unknown>(url: string) {
 	useEffect(() => {
 		api
 			.get(url)
-			.then((response) => setData(response.data))
+			.then((response) => {
+				setData(response.data);
+			})
 			.catch((error) => setError(error))
 			.finally(() => setIsFetching(false));
 	}, []);

@@ -4,33 +4,39 @@ import Button from '../Button';
 import { postItem } from '../../services/api';
 import WebApp from '@twa-dev/sdk';
 import Input from '../Input';
+import Checkbox from '../Checkbox';
 
 interface TransactionFormProps {
 	onCloseModal(): void;
 }
 export default function TransactionForm({ onCloseModal }: TransactionFormProps) {
-	const [description, setDescription] = useState<string>('');
+	const [designation, setDesignation] = useState<string>('');
 	const [amount, setAmount] = useState<number>();
-	const [date, setDate] = useState<Date | string>(new Date());
+	const [completed, setCompleted] = useState(false);
+	const [isDefault, setIsDefault] = useState(false);
+	const [income, setIncome] = useState(false);
 
 	async function handleSubmitTransaction(e: FormEvent) {
 		e.preventDefault();
-		if (!description || !amount || !date) {
-			// WebApp.showAlert('Please, fill all the fields');
+		if (!designation || !amount) {
+			alert('Please, fill all the fields');
 			return;
 		}
-		// const response = await postItem('/transactions', { description, amount, date });
 
-		// if (response.error) WebApp.showAlert('Error submitting transaction');
-		// else {
-		// 	WebApp.showAlert('Successfully submitted transaction');
-		// 	onCloseModal();
-		// }
+		const type = income ? 'INCOME' : undefined;
+
+		const response = await postItem('/transactions', { designation, amount, completed, isDefault, type });
+
+		if (response.error) alert('Error submitting transaction');
+		else {
+			alert('Successfully submitted transaction');
+			onCloseModal();
+		}
 	}
 
 	return (
 		<form onSubmit={handleSubmitTransaction}>
-			<Input label="Description" name="description" onChange={(e) => setDescription(e.target.value)} />
+			<Input label="Designation" name="designation" onChange={(e) => setDesignation(e.target.value)} />
 			<Input
 				label="Amount"
 				name="amount"
@@ -40,12 +46,9 @@ export default function TransactionForm({ onCloseModal }: TransactionFormProps) 
 				onChange={(e) => setAmount(Number(e.target.value))}
 			/>
 
-			{/* <InputGroup>
-				<label htmlFor="date" className="sr-only">
-					Descrição
-				</label>
-				<input type="date" id="date" name="date" placeholder="01/01/2021" onChange={(e) => setDate(e.target.value)} />
-			</InputGroup> */}
+			<Checkbox label="Is completed?" name="completed" onChange={(e) => setCompleted(e.target.checked)} />
+			<Checkbox label="Is default?" name="is-default" onChange={(e) => setIsDefault(e.target.checked)} />
+			<Checkbox label="Is income?" name="income" onChange={(e) => setIncome(e.target.checked)} />
 
 			<ActionsGroup>
 				<Button text="Cancel" buttonType="danger" onClick={onCloseModal} />
