@@ -54,7 +54,14 @@ class TransactionRepository {
 			}
 		});
 
-		return transactions;
+		const balance = {INCOME: 0, EXPENSE: 0, total: 0};
+		for (const transaction of transactions) {
+			let amount = transaction.amount;
+			balance[transaction.type] +=  amount;
+			balance.total += amount;
+		}
+
+		return {transactions, balance};
 	}
 
 	async findById(id: string) {
