@@ -6,6 +6,8 @@ import Home from './pages/Home';
 import ApiStatus from './components/ApiStatus';
 import { theme } from './styles/theme';
 import { GlobalStyle } from './styles/global';
+import Login from './pages/Login';
+import { UserRegistration } from './pages/UserRegistration';
 
 interface SessionProps {
 	token: string;
@@ -33,21 +35,23 @@ function App() {
 		}
 	}
 
-	return (
-		<>
-			<ThemeProvider theme={theme}>
-				{userLoaded ? (
-					<Home />
-				) : (
-					<>
-						<p style={{ textAlign: 'center', paddingTop: '6rem', height: '8rem' }}>Loading user data...</p>
-						<ApiStatus />
-					</>
-				)}
-				<GlobalStyle />
-			</ThemeProvider>
-		</>
-	);
+	// return (
+	// 	<>
+	// 		<ThemeProvider theme={theme}>
+	// 			{userLoaded ? (
+	// 				<Home />
+	// 			) : (
+	// 				<>
+	// 					<p style={{ textAlign: 'center', paddingTop: '6rem', height: '8rem' }}>Loading user data...</p>
+	// 					<ApiStatus />
+	// 				</>
+	// 			)}
+	// 			<GlobalStyle />
+	// 		</ThemeProvider>
+	// 	</>
+	// );
+	// return (<Login />);
+	return (<UserRegistration/>);
 }
 
 export default App;

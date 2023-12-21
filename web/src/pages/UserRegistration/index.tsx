@@ -1,17 +1,33 @@
+import { Button, LogoContainer, MainContainer, SecondaryContainer } from "./styles";
+import logo from "../../static/images/logo.svg";
+
 export function UserRegistration() {
     return (
         <form action="" method="post">
-            <label htmlFor="firstname">First name </label>
-            <input type="text" placeholder="Enter your first name" id="firstname" />
-            <label htmlFor="lastname">Last name </label>
-            <input type="text" placeholder="Enter your last name" id="lastname" />
-            <label htmlFor="email">Email </label>
-            <input type="email" placeholder="Enter your e-mail" id="email" />
-            <label htmlFor="password">Password </label>
-            <input type="password" placeholder="password" id="password" />
-            <label htmlFor="confirm-password">Confirm Password </label>
-            <input type="password" placeholder="password" id="confirm-password" />
-            <button type="submit">Signup</button>
+            <MainContainer>
+                <LogoContainer>
+                    <img src={logo} alt="logo" />
+                </LogoContainer>
+                <SecondaryContainer>
+                    <label htmlFor="lastname">Name </label>
+                    <input type="text" placeholder="Enter your name" id="lastname" />
+                </SecondaryContainer>
+                <SecondaryContainer>
+                    <label htmlFor="email">Email </label>
+                    <input type="email" placeholder="Enter your e-mail" id="email" />
+                </SecondaryContainer>
+
+                <SecondaryContainer>
+                    <label htmlFor="password">Password </label>
+                    <input type="password" placeholder="password" id="password" />
+                </SecondaryContainer>
+                <SecondaryContainer>
+                    <label htmlFor="confirm-password">Confirm Password </label>
+                    <input type="password" placeholder="password" id="confirm-password" />
+                </SecondaryContainer>
+                <Button type="submit">Signup</Button>
+            </MainContainer>
+
         </form>
     );
 }
