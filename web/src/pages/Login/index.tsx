@@ -1,12 +1,14 @@
-import { LoginForm, MainContainer, Button, SecondaryContainer, Label, Input, RegisterContainer, LogoContainer, LoginSignupContainer } from "./styles";
+import { MainContainer, SecondaryContainer, LogoContainer, LoginSignupContainer } from "./styles";
 import logo from "../../static/images/logo.svg";
+import Input from "../../components/Input";
+import Button from "../../components/Button";
 
 export default function Login() {
     return (
         <form action="" method="get">
             <MainContainer>
                 <LogoContainer>
-                    <img src={ logo } alt="logo" />
+                    <img src={logo} alt="logo" />
                 </LogoContainer>
                 <LoginSignupContainer>
                     <div style={{ width: "50%", display: "flex", justifyContent: "center", margin: "0px 20px", borderBottom: "5px solid #49AA26" }}>
@@ -17,17 +19,14 @@ export default function Login() {
                     </div>
                 </LoginSignupContainer>
                 <SecondaryContainer>
-                    <Label htmlFor="email">Email address</Label>
-                    <Input type="text" placeholder="E-mail" id="email" />
+                    <Input type="email" label="E-mail" name="email" />
                 </SecondaryContainer>
                 <SecondaryContainer>
-                    <Label htmlFor="password">Password </Label>
-                    <Input type="password" placeholder="password" id="password" />
+                    <Input type="password" label="password" id="password" />
                 </SecondaryContainer>
-                <Button type="submit">Login</Button>
-                <RegisterContainer>
-                    <p>Don't have an account? <a href="#" style={{ color: "#49AA26" }}>Register Now</a> </p>
-                </RegisterContainer>
+                <SecondaryContainer>
+                    <Button text="Login" type="submit"></Button>
+                </SecondaryContainer>
 
             </MainContainer>
         </form>

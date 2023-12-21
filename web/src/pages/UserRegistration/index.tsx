@@ -1,5 +1,7 @@
-import { Button, LogoContainer, MainContainer, SecondaryContainer } from "./styles";
+import { LoginSignupContainer, LogoContainer, MainContainer, SecondaryContainer } from "./styles";
+import Button from "../../components/Button";
 import logo from "../../static/images/logo.svg";
+import Input from "../../components/Input";
 
 export function UserRegistration() {
     return (
@@ -8,24 +10,30 @@ export function UserRegistration() {
                 <LogoContainer>
                     <img src={logo} alt="logo" />
                 </LogoContainer>
+                <LoginSignupContainer>
+                    <div style={{ width: "50%", display: "flex", justifyContent: "center", margin: "0px 20px" }}>
+                        <p >Login</p>
+                    </div>
+                    <div style={{ width: "50%", display: "flex", justifyContent: "center", margin: "0px 20px", borderBottom: "5px solid #49AA26" }}>
+                        <p style={{ color: "#49AA26" }}>Signup</p>
+                    </div>
+                </LoginSignupContainer>
                 <SecondaryContainer>
-                    <label htmlFor="lastname">Name </label>
-                    <input type="text" placeholder="Enter your name" id="lastname" />
+                    <Input label="Enter your name" name="name" type="text" />
                 </SecondaryContainer>
                 <SecondaryContainer>
-                    <label htmlFor="email">Email </label>
-                    <input type="email" placeholder="Enter your e-mail" id="email" />
+                    <Input label="Enter your Email" name="email" type="email" />
                 </SecondaryContainer>
 
                 <SecondaryContainer>
-                    <label htmlFor="password">Password </label>
-                    <input type="password" placeholder="password" id="password" />
+                    <Input label="Enter your password" name="password" type="password" />
                 </SecondaryContainer>
                 <SecondaryContainer>
-                    <label htmlFor="confirm-password">Confirm Password </label>
-                    <input type="password" placeholder="password" id="confirm-password" />
+                    <Input label="Confirm your password" name="confirm-password" type="password" />
                 </SecondaryContainer>
-                <Button type="submit">Signup</Button>
+                <SecondaryContainer>
+                    <Button text="Signup" type="submit"></Button>
+                </SecondaryContainer>
             </MainContainer>
 
         </form>

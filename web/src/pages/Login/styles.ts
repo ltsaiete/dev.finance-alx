@@ -23,10 +23,10 @@ export const MainContainer = styled.div`
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    border: .1px solid black;
     border-radius: 20px;
     padding: 3%;
     margin-top: 10%;
+    box-shadow: 0px 0px 40px 0px rgba(0, 0, 0, 0.37);
 `;
 
 export const SecondaryContainer = styled.div`
@@ -39,6 +39,7 @@ export const LogoContainer =  styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 20px;
 `;
 
 export const RegisterContainer = styled.div`

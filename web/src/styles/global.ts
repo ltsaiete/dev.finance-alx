@@ -17,6 +17,9 @@ body {
   color: ${(props) => props.theme.colors.textBase};
   font-size: 1.4rem;
 }
+input, textarea, select, button {
+  font-family: inherit;
+}
 
 h2 {
   margin-bottom: 0.8rem;
@@ -46,3 +49,4 @@ a:hover {
   border-width: 0;
 }
 `;
+

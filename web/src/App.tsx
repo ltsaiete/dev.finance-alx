@@ -9,8 +9,10 @@ function App() {
 	return (
 		<>
 			<ThemeProvider theme={theme}>
-				<Home />
+				<UserRegistration />
+				{/* <Login /> */}
 				<GlobalStyle />
+
 			</ThemeProvider>
 		</>
 	);
