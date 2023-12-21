@@ -1,8 +1,13 @@
 import Fastify from 'fastify';
+import cors from '@fastify/cors';
 import routes from './routes';
 
 const server = Fastify({
 	logger: true
+});
+
+server.register(cors, {
+	origin: '*'
 });
 
 // register routes
