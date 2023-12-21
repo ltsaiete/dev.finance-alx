@@ -12,7 +12,10 @@ const BaseContainer = styled.div`
 `;
 
 export const BalanceContainer = styled(BaseContainer).attrs({ as: 'main' })`
-	margin-top: -6rem;
+	margin-top: -4rem;
+	display: flex;
+	gap: 3.2rem;
+	justify-content: space-between;
 `;
 
 export const TransactionsContainer = styled(BaseContainer).attrs({ as: 'aside' })``;

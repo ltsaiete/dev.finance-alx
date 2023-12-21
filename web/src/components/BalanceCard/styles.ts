@@ -6,6 +6,7 @@ export const Container = styled.div<{ $total?: boolean }>`
 	border-radius: 0.25rem;
 	color: ${(props) => (props.$total ? props.theme.colors.white : props.theme.colors.textTitle)};
 	margin-bottom: 2rem;
+	width: 100%;
 
 	h3 {
 		font-weight: 400;

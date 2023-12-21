@@ -10,6 +10,9 @@ class UserController {
     // get especific
     static async getUser(request: FastifyRequest, reply: FastifyReply) {
         const { id } = request.params as requestParams;
+
+        if (request.userId !== id) { return reply.status(404).send({ error: "Unauthorized", message: "Access denied" }); }
+
         const user = await userRepository.findUser(id);
 
         if (!user) {
@@ -29,7 +32,7 @@ class UserController {
         if (user) {
             return reply.status(400).send({ errors: "Email already as an account." });
         }
-        
+
         const newUser = await userRepository.create(name, email, password);
 
         return reply.status(201).send(newUser);
@@ -37,6 +40,9 @@ class UserController {
 
     static async deleteUser(request: FastifyRequest, reply: FastifyReply) {
         const { id } = request.params as requestParams;
+
+        if (request.userId !== id) { return reply.status(404).send({ error: "Unauthorized", message: "Access denied" }); }
+
         const user = await userRepository.findUser(id);
 
         if (!user) {
@@ -45,7 +51,7 @@ class UserController {
 
         await userRepository.deleteUser(id);
 
-        return {message: "User deleted."};
+        return { message: "User deleted." };
     }
 }
 

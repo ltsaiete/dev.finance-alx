@@ -2,6 +2,7 @@ import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 import { z } from 'zod';
 import userRoutes from './user';
 import transactionRoutes from './transaction';
+import authRoutes from './auth';
 
 async function routes(fastify: FastifyInstance, options: any) {
 	fastify.get('/status', async (request: FastifyRequest, reply: FastifyReply) => {
@@ -11,6 +12,7 @@ async function routes(fastify: FastifyInstance, options: any) {
 	// register user routes
 	fastify.register(userRoutes, { prefix: '/users' });
 	fastify.register(transactionRoutes, { prefix: '/transactions' });
+	fastify.register(authRoutes, { prefix: '/auth' });
 
 	fastify.setErrorHandler(function (error, request, reply) {
 		if (error instanceof z.ZodError) {
