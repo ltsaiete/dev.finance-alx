@@ -2,9 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.table`
 	width: 100%;
-	display: block;
 	border-spacing: 0 0.5rem;
-	overflow-x: auto;
 
 	thead tr th:first-child {
 		border-radius: 0.25rem 0 0 0;

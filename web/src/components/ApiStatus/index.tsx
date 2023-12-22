@@ -2,6 +2,8 @@ import useFetch from '../../hooks/useFetch';
 
 export default function ApiStatus() {
 	const { data: status } = useFetch('/status');
+	console.log(status);
+	
 	return (
 		<div
 			style={{
