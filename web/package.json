@@ -13,11 +13,13 @@
     "@phosphor-icons/react": "^2.0.13",
     "@radix-ui/react-dialog": "^1.0.5",
     "@twa-dev/sdk": "^6.9.0",
+    "@types/styled-components": "^5.1.34",
     "axios": "^1.5.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.21.0",
     "redaxios": "^0.5.1",
-    "styled-components": "^6.0.8"
+    "styled-components": "^6.1.2"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

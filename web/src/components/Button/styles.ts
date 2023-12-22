@@ -10,6 +10,8 @@ export const Container = styled.button`
 
 export const PrimaryButtonContainer = styled(Container)`
 	border: none;
+	width: 100%;
+	height: 40px;
 	color: ${({ theme }) => theme.colors.white};
 	background: ${(props) => props.theme.colors.main};
 	&:hover {
