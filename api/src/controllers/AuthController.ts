@@ -35,10 +35,14 @@ class AuthController {
         }
 
         const token = jwt.sign({ userId: user.id }, AuthController.#SECRET_KEY, {
-            expiresIn: '1h',
+            expiresIn: '24h',
         });
 
-        return reply.send({ token, user: { id: user.id, name: user.name, email: user.email } });
+        
+
+        return reply.setCookie('auth', token, {
+            maxAge: 60*60*24,
+        }).send({ id: user.id, name: user.name, email: user.email } );
     }
 
     static verifyToken(token: string) {

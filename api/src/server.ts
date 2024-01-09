@@ -1,5 +1,6 @@
 import Fastify from 'fastify';
 import cors from '@fastify/cors';
+import cookie, { FastifyCookieOptions } from '@fastify/cookie';
 import routes from './routes';
 
 const server = Fastify({
@@ -9,6 +10,11 @@ const server = Fastify({
 server.register(cors, {
 	origin: '*'
 });
+
+server.register(cookie, {
+	secret: process.env.APP_SECRET,
+	parseOptions: {},
+}as FastifyCookieOptions);
 
 // register routes
 server.register(routes, { prefix: '/api/v1' });
